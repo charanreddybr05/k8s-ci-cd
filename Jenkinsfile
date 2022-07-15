@@ -37,8 +37,8 @@ pipeline {
         //     }
         // })
         stage('Create Docker image & Upload to JFrog artifactory') {
+            agent any
             steps {
-                agent any
                 sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
                 sh 'docker images'
             }
