@@ -39,6 +39,7 @@ pipeline {
         stage('Create Docker image & Upload to JFrog artifactory') {
             agent any
             steps {
+                sh 'docker build -t app:${BUILD_NUMBER} .'
                 sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
                 sh 'docker images'
             }
