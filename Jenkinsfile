@@ -41,7 +41,8 @@ pipeline {
             steps {
                 sh 'docker build -t app:${BUILD_NUMBER} .'
                 sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
-                sh 'docker images'
+                sh 'docker tag app:${BUILD_NUMBER} macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
+                sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
             }
         }
         // stage('upload artifact to nexus') {
