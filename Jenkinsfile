@@ -73,7 +73,7 @@ pipeline {
         //             version: '1.0.0'
         //     }
         // }
-    }
+
     // post {
     //     always{
     //         deleteDir()
