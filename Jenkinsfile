@@ -20,8 +20,8 @@ pipeline {
         //     }
         // }
         stage('Maven Build & Sonar') {
-          agent any
-          //agent { docker 'maven' }
+          //agent any
+          agent { docker 'maven' }
           steps {
             withSonarQubeEnv('jenkinsSonar') {
               sh 'mvn clean install sonar:sonar'
