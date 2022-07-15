@@ -47,7 +47,7 @@ pipeline {
                 // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                 script {
                     def customImage = docker.build("app:${env.BUILD_NUMBER}")
-                    withDockerRegistry(credentialsId: 'jfrogcred', url: 'macbookair.jfrog.io/docker'){
+                    withDockerRegistry(credentialsId: 'jfrogcred', url: 'https://macbookair.jfrog.io/docker'){
                     // dockerImage.push("app:${BUILD_NUMBER}")
                     customImage.push()   
                     }
