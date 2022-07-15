@@ -13,24 +13,16 @@ pipeline {
     //     image 'maven:latest' }
     // }
     stages {
-        // stage('Build') {
-        //     agent { docker 'maven' }
-        //     steps {
-        //         sh "mvn clean install"
-        //     }
-        // }
         stage('Maven Build & Sonar') {
           //agent any
           agent { docker 'maven' }
           steps {
             withSonarQubeEnv('jenkinsSonar') {
-              sh 'mvn clean install sonar:sonar'
-                }
-            timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
+            //   sh 'mvn clean install sonar:sonar'
+              sh 'mvn clean install'
                 }
             }
-    }
+        }
         // stage('Quality Gate') {
         //     // This doesn't require an executor/agent
         //     // waitForQualityGate - Wait for SonarQube analysis to be completed and return quality gate status. This step pauses Pipeline execution and wait for previously submitted SonarQube analysis to be completed and returns quality gate status. Setting the parameter abortPipeline to true will abort the pipeline if quality gate status is not green.
@@ -39,7 +31,16 @@ pipeline {
         //       waitForQualityGate abortPipeline: true
         //         }
         //     }
-        // }
+        // })
+        stage('Create Docker image & Upload to JFrog artifactory')
+            steps {
+                agent any
+                environment {
+                    CREDS = credentials('jfrogcred')
+                }
+                sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
+                sh 'docker images'
+            }
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
