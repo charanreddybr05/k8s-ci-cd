@@ -3,7 +3,7 @@ pipeline {
     agent {
     //We can define Dockerfile also
     dockerfile {
-        filename 'Dockerfile.build'
+        filename 'Dockerfile'
         additionalBuildArgs  '--build-arg version=1.0.2'
         args '-v /tmp:/tmp' }
     }
