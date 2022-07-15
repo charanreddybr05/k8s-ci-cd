@@ -1,7 +1,8 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     environment {
-        CREDS = credentials('jfrogcred')
+        //CREDS = credentials('jfrogcred')
+        registryCredential = 'jfrogcred'
     }
                 
     agent none 
@@ -36,13 +37,17 @@ pipeline {
         //         }
         //     }
         // })
-        stage('Create Docker image & Upload to JFrog artifactory') {
+        stage('Build Docker image & Upload to JFrog artifactory') {
             agent any
             steps {
-                sh 'docker build -t app:${BUILD_NUMBER} .'
-                sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
-                sh 'docker tag app:${BUILD_NUMBER} macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
-                sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
+                // sh 'docker build -t app:${BUILD_NUMBER} .'
+                // sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
+                // sh 'docker tag app:${BUILD_NUMBER} macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
+                // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
+                dockerImage = docker.build app:${BUILD_NUMBER}
+                docker.withRegistry('macbookair.jfrog.io/docker', registryCredential ) {
+                    dockerImage.push("app:${BUILD_NUMBER}")
+                }
             }
         }
         // stage('upload artifact to nexus') {
