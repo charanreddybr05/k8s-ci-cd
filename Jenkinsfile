@@ -20,13 +20,13 @@ pipeline {
         //     }
         // }
         stage('Maven Build & Sonar') {
-            agent { docker 'maven' }
-            steps {
-              withSonarQubeEnv('jenkins') {
-                sh 'mvn sonar:sonar'
-              }
+          agent { docker 'maven' }
+          steps {
+            withSonarQubeEnv('jenkins') {
+              sh 'mvn sonar:sonar'
             }
         }
+    }
         stage('Quality Gate') {
             // This doesn't require an executor/agent
             // waitForQualityGate - This step pauses Pipeline execution and wait for previously submitted SonarQube analysis to be completed and returns quality gate status. Setting the parameter abortPipeline to true will abort the pipeline if quality gate status is not green.
