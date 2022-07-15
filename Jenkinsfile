@@ -47,10 +47,9 @@ pipeline {
                 // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                 script {
                     def customImage = docker.build("app:${env.BUILD_NUMBER}")
-                    withDockerRegistry('macbookair.jfrog.io/docker', registryCredential ) {
+                    withDockerRegistry('macbookair.jfrog.io/docker', registryCredential )
                     // dockerImage.push("app:${BUILD_NUMBER}")
-                    customImage.push()
-                    }   
+                    customImage.push()   
                 }
             }
         }
@@ -73,7 +72,7 @@ pipeline {
         //             version: '1.0.0'
         //     }
         // }
-
+    }
     // post {
     //     always{
     //         deleteDir()
