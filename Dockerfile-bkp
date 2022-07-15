@@ -1,0 +1,20 @@
+#By default, the stages are not named, and you refer to them by their integer number, 
+#starting with 0 for the first FROM instruction.
+FROM alpine/git AS clone
+WORKDIR /app
+RUN git clone https://github.com/charanreddybr05/k8s-ci-cd.git
+
+FROM maven AS build
+LABEL author="devopsgeeks@gmail.com"
+WORKDIR /app
+COPY --from=clone /app/k8s-ci-cd /app
+RUN mvn clean install
+
+FROM tomcat AS tomcat
+LABEL author="devopsgeeks@gmail.com"
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps
+EXPOSE 8080
+
+# FROM httpd AS httpd
+# COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+#docker build --target=build -t maven:1.0 .
