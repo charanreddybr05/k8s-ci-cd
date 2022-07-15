@@ -7,7 +7,7 @@ pipeline {
         dir 'build'
         label 'my-defined-label'
         additionalBuildArgs  '--build-arg version=1.0.2'
-        args '-v /tmp:/tmp'
+        args '-v /tmp:/tmp' }
     }
     //   docker { 
     //     image 'maven:latest' }
