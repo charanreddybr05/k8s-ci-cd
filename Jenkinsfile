@@ -1,8 +1,8 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     agent {
-    //We can define Dockerfile also
-    dockerfile {
+      //any(Execute the Pipeline, or stage, on any available agent. For example: agent any)
+      dockerfile {
         filename 'Dockerfile'
         additionalBuildArgs  '--build-arg version=1.0.2'
         args '-v /tmp:/tmp' }
