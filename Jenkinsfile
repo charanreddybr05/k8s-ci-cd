@@ -26,8 +26,6 @@ pipeline {
             withSonarQubeEnv('jenkinsSonar') {
               sh 'mvn clean install sonar:sonar'
                 }
-            }
-          steps {
             timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
                 }
