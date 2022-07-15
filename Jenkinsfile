@@ -25,18 +25,23 @@ pipeline {
           steps {
             withSonarQubeEnv('jenkinsSonar') {
               sh 'mvn clean install sonar:sonar'
-            }
-        }
-    }
-        stage('Quality Gate') {
-            // This doesn't require an executor/agent
-            // waitForQualityGate - Wait for SonarQube analysis to be completed and return quality gate status. This step pauses Pipeline execution and wait for previously submitted SonarQube analysis to be completed and returns quality gate status. Setting the parameter abortPipeline to true will abort the pipeline if quality gate status is not green.
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                  waitForQualityGate abortPipeline: false
                 }
             }
-        }
+          steps {
+            timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+                }
+            }
+    }
+        // stage('Quality Gate') {
+        //     // This doesn't require an executor/agent
+        //     // waitForQualityGate - Wait for SonarQube analysis to be completed and return quality gate status. This step pauses Pipeline execution and wait for previously submitted SonarQube analysis to be completed and returns quality gate status. Setting the parameter abortPipeline to true will abort the pipeline if quality gate status is not green.
+        //   steps {
+        //     timeout(time: 1, unit: 'HOURS') {
+        //       waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
