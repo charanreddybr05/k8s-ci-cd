@@ -1,5 +1,9 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
+    environment {
+        CREDS = credentials('jfrogcred')
+    }
+                
     agent none 
     //any - Execute the Pipeline, or stage, on any available agent. For example: agent any
     //none - When applied at the top-level of the pipeline block no global agent will be allocated for the entire Pipeline run and each stage section will need to contain its own agent section. For example: agent none
@@ -35,9 +39,6 @@ pipeline {
         stage('Create Docker image & Upload to JFrog artifactory') {
             steps {
                 agent any
-                environment {
-                    CREDS = credentials('jfrogcred')
-                }
                 sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
                 sh 'docker images'
             }
