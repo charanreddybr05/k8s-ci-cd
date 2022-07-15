@@ -2,7 +2,8 @@
 pipeline {
     environment {
         //CREDS = credentials('jfrogcred')
-        registry = 'https://macbookair.jfrog.io/docker'
+        registryUrl = 'https://macbookair.jfrog.io/docker'
+        registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
     }
                 
@@ -46,7 +47,7 @@ pipeline {
                 // sh 'docker tag app:${BUILD_NUMBER} macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                 // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                 script {
-                    withDockerRegistry(credentialsId: 'jfrogcred', url: "${registry}"){
+                    withDockerRegistry(credentialsId: 'jfrogcred', url: "${registryUrl}"){
                     def appImage = docker.build("${registry}/app:${env.BUILD_NUMBER}")
                     // dockerImage.push("app:${BUILD_NUMBER}")
                     appImage.push()   
