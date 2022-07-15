@@ -32,7 +32,7 @@ pipeline {
         //         }
         //     }
         // })
-        stage('Create Docker image & Upload to JFrog artifactory')
+        stage('Create Docker image & Upload to JFrog artifactory') {
             steps {
                 agent any
                 environment {
@@ -41,6 +41,7 @@ pipeline {
                 sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
                 sh 'docker images'
             }
+        }
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
