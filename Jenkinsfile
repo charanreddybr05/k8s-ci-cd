@@ -100,7 +100,7 @@ pipeline {
                                 // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                                 script {
                                     withDockerRegistry(credentialsId: 'jfrogcred', url: "${registryUrl}"){
-                                    def appImage = docker.build("${registry}/app:${env.BUILD_NUMBER}")
+                                    def appImage = docker.build("${registry}/app:${env.BUILD_NUMBER}") --target tomcat
                                     // dockerImage.push("app:${BUILD_NUMBER}")
                                     appImage.push()   
                                     }
@@ -113,8 +113,8 @@ pipeline {
         }
         stage('Deploy to GKE cluster') {
             // agent { docker 'ibmcom/kubectl' }
-            // agent any
-            agent { docker 'ibmcom/helm-ppc64le' }
+            agent any
+            // agent { docker 'ibmcom/helm-ppc64le' }
             steps {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
