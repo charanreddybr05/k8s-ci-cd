@@ -115,6 +115,7 @@ pipeline {
         }
         stage('Deploy to GKE cluster') {
             // agent any
+            // Install gcloud, kubectl and helm with jenkins user
             agent { docker 'kiwigrid/gcloud-kubectl-helm' }
             // agent { docker 'paperhive/gcloud-tools' }
             // agent {
