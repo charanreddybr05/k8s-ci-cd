@@ -109,7 +109,8 @@ pipeline {
             }
         }
         stage('Deploy to GKE cluster') {
-            agent { docker 'bitnami/kubectl' }
+            // agent { docker 'bitnami/kubectl' }
+            agent any
             steps {
                 kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // some block
