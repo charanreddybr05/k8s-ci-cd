@@ -113,7 +113,8 @@ pipeline {
         }
         stage('Deploy to GKE cluster') {
             // agent { docker 'ibmcom/kubectl' }
-            agent any
+            // agent any
+            agent { docker 'ibmcom/helm' }
             steps {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
