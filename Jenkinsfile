@@ -100,7 +100,7 @@ pipeline {
                                 // sh 'docker push macbookair.jfrog.io/docker/app:${BUILD_NUMBER}'
                                 script {
                                     withDockerRegistry(credentialsId: 'jfrogcred', url: "${registryUrl}"){
-                                    def appImage = docker.build("${registry}/app:${env.BUILD_NUMBER}") --target tomcat
+                                    def appImage = docker.build("${registry}/app:${env.BUILD_NUMBER}").withRun('--target tomcat')
                                     // dockerImage.push("app:${BUILD_NUMBER}")
                                     appImage.push()   
                                     }
