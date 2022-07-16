@@ -131,6 +131,7 @@ pipeline {
     }
     post {
         always {
+        agent any
             deleteDir()
         }
     }
