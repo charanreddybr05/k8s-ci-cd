@@ -47,8 +47,7 @@ pipeline {
         // })
 //A stage must have one and only one of steps, stages, parallel, or matrix
         stage('Build Docker image & Upload to JFrog artifactory') {
-            // agent any
-            agent { docker 'alpine' }
+            agent any
             input {
                 message "Maven Build is success, proceed?"
                 ok "Yes, proceed"
