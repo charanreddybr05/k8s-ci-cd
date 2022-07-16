@@ -49,11 +49,11 @@ pipeline {
         stage('Build Docker image & Upload to JFrog artifactory') {
             agent any
             input {
-                message "Maven Build is success, procees?"
+                message "Maven Build is success, proceed?"
                 ok "Yes, proceed"
                 submitter ""
                 parameters {
-                    string(name: 'PERSON', defaultValue: 'admin', description: 'Hello')
+                    string(name: 'Maven Build', defaultValue: 'yes', description: 'Build promotion')
                 }
             }
             stages {
@@ -64,7 +64,8 @@ pipeline {
                         stage('Upload WAR file') {
                             steps {
                             //This is to upload WAR file
-                                sh 'Uploading Artifact'
+                                echo "Uploading Artifact"
+                                sh 'echo Uploading echo artifact'
                                 }
                             }
                         stage('Build Docker image & Upload to JFrog artifactory') {
