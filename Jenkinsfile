@@ -13,7 +13,7 @@ pipeline {
         pollSCM('* * * * *')
     }
                 
-    agent any 
+    agent none 
 //any - Execute the Pipeline, or stage, on any available agent. For example: agent any
 //none - When applied at the top-level of the pipeline block no global agent will be allocated for the entire Pipeline run and each stage section will need to contain its own agent section. For example: agent none
 //{ label 'docker' } - Execute the Pipeline, or stage, on an agent available in the Jenkins environment with the provided label. For example: agent { label 'my-defined-label' }
