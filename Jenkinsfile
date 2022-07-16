@@ -128,8 +128,10 @@ pipeline {
                 // }
                 withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
                     sh '''
-
-                        
+                        gcloud auth activate-service-account k8s-svc@stan-robot-shop-354006.iam.gserviceaccount.com --key-file="$GKE_CREDS"
+                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                        kubectl config set-credentials ~/.kube/config 
+                        kubectl get ns
                         helm list 
                     '''
                 }
@@ -137,10 +139,6 @@ pipeline {
                 // sh 'echo Hello'
             }
         }
-        // gcloud auth activate-service-account --key-file="$GKE_CREDS"
-        //                 gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
-        //                 kubectl config set-credentials ~/.kube/config 
-        //                 kubectl get ns
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
