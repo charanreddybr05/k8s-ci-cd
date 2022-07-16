@@ -113,8 +113,8 @@ pipeline {
         }
         stage('Deploy to GKE cluster') {
             // agent { docker 'ibmcom/kubectl' }
-            agent any
-            // agent { docker 'ibmcom/helm-ppc64le' }
+            // agent any
+            agent { docker 'kiwigrid/gcloud-kubectl-helm' }
             steps {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
@@ -125,7 +125,7 @@ pipeline {
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         kubectl config set-credentials ~/.kube/config 
                         kubectl get ns
-                        helm install -f helm/values.yaml httpd 
+                        helm list 
                     '''
                 }
                 // kubernetesDeploy(credentialsType: '')
