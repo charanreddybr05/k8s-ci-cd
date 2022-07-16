@@ -1,7 +1,7 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     environment {
-        CREDS = credentials('gke-svc-secret')
+        CREDS = 'credentials('gke-svc-secret')'
         registryUrl = 'https://macbookair.jfrog.io/docker'
         registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
