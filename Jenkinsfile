@@ -129,11 +129,11 @@ pipeline {
         //     }
         // }
     }
-    // post {
-    //     always {
-    //         cleanWs()
-    //     }
-    // }
+    post {
+        always {
+            deleteDir()
+        }
+    }
     // post {
     //     always{
     //         deleteDir()
