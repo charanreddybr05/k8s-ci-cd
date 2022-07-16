@@ -108,6 +108,14 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to GKE cluster') {
+            agent { docker 'bitnami/kubectl' }
+            steps {
+                kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '') {
+                // some block
+                }
+            }
+        }
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
