@@ -58,10 +58,12 @@ pipeline {
             }
             stages {
                 stage('Upload WAR file to Artifactory') {
+                agent any
 //We can force our parallel stages to all be aborted when any one of them fails, by adding failFast true to the stage containing the parallel
                     failFast true
                     parallel {
                         stage('Upload WAR file') {
+                            agent any
                             steps {
                             //This is to upload WAR file
                                 echo "Uploading Artifact"
@@ -89,6 +91,7 @@ pipeline {
                                 }
                             }
                         stage('Build Docker image & Upload to JFrog artifactory') {
+                            agent any
                             steps {
                                 // sh 'docker build -t app:${BUILD_NUMBER} .'
                                 // sh 'docker login -u${CREDS_USR} -p${CREDS_PSW} macbookair.jfrog.io'
