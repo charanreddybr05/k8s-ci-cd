@@ -119,6 +119,7 @@ pipeline {
                     sh '''
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         gcloud compute zones list
+                        kubectl get nodes
                     '''
                 }
                 // kubernetesDeploy(credentialsType: '')
