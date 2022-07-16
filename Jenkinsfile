@@ -117,8 +117,7 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    additionalBuildArgs '--build-arg bash'
-
+                    additionalBuildArgs '--target helm'
                 }
             }
             steps {
