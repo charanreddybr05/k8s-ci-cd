@@ -112,9 +112,16 @@ pipeline {
             }
         }
         stage('Deploy to GKE cluster') {
-            // agent { docker 'ibmcom/kubectl' }
             // agent any
-            agent { docker 'kiwigrid/gcloud-kubectl-helm' }
+            // agent { docker 'kiwigrid/gcloud-kubectl-helm' }
+            agent {
+                dockerfile {
+                    filename 'Dockerfile.build'
+                    dir build
+                    args '--target helm'
+
+                }
+            }
             steps {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
