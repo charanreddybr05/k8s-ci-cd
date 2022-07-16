@@ -127,21 +127,20 @@ pipeline {
                 // // some block
                 // }
                 withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
-                    sh 'gcloud auth activate-service-account --key-file="$GKE_CREDS"'
-                // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
-                //     sh '''
+                    sh '''
 
-                //         gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                //         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
-                //         kubectl config set-credentials ~/.kube/config 
-                //         kubectl get ns
-                //         helm list 
-                //     '''
-                // }
+                        
+                        helm list 
+                    '''
+                }
                 // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
                 // sh 'echo Hello'
             }
         }
+        // gcloud auth activate-service-account --key-file="$GKE_CREDS"
+        //                 gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+        //                 kubectl config set-credentials ~/.kube/config 
+        //                 kubectl get ns
         // stage('upload artifact to nexus') {
         //     steps {
         //         nexusArtifactUploader artifacts: [
@@ -181,5 +180,4 @@ pipeline {
     //         echo "The job is successful"
     //     }
     // }
-}
 }
