@@ -5,6 +5,9 @@ pipeline {
         registryUrl = 'https://macbookair.jfrog.io/docker'
         registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
+        gkeProject = 'stan-robot-shop-354006'
+        gkeRegion = 'us-central1'
+        gkeCluster = 'jenkins-k8s'
     }
     triggers {
 //cron - Accepts a cron-style string to define a regular interval at which the Pipeline should be re-triggered, for example: triggers { cron('H */4 * * 1-5') }
@@ -119,6 +122,7 @@ pipeline {
                     sh '''
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         gcloud compute zones list
+                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         kubectl get nodes
                     '''
                 }
