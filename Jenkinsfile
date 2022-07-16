@@ -127,15 +127,17 @@ pipeline {
                 // // some block
                 // }
                 withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
-                    sh '
+                    sh 'gcloud auth activate-service-account --key-file="$GKE_CREDS"'
+                // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
+                //     sh '''
 
-                        gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
-                        kubectl config set-credentials ~/.kube/config 
-                        kubectl get ns
-                        helm list 
-                    '
-                }
+                //         gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                //         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                //         kubectl config set-credentials ~/.kube/config 
+                //         kubectl get ns
+                //         helm list 
+                //     '''
+                // }
                 // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
                 // sh 'echo Hello'
             }
