@@ -130,8 +130,8 @@ pipeline {
         // }
     }
     post {
-        always {
         agent any
+        always {
             deleteDir()
         }
     }
