@@ -1,13 +1,15 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     environment {
-        //CREDS = credentials('jfrogcred')
+        //CREDS = credentials('gke-svc-secret')
         registryUrl = 'https://macbookair.jfrog.io/docker'
         registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
         gkeProject = 'stan-robot-shop-354006'
         gkeRegion = 'us-central1'
         gkeCluster = 'jenkins-k8s'
+        CREDS = credentials()
+
     }
     triggers {
 //cron - Accepts a cron-style string to define a regular interval at which the Pipeline should be re-triggered, for example: triggers { cron('H */4 * * 1-5') }
@@ -125,17 +127,17 @@ pipeline {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
                 // }
-                withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
-                    bash '''
+                // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
+                //     sh '''
 
-                        gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
-                        kubectl config set-credentials ~/.kube/config 
-                        kubectl get ns
-                        helm list 
-                    '''
-                }
-                // kubernetesDeploy(credentialsType: '')
+                //         gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                //         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                //         kubectl config set-credentials ~/.kube/config 
+                //         kubectl get ns
+                //         helm list 
+                //     '''
+                // }
+                gcloud auth activate-service-account --key-file="$CREDS"
             }
         }
         // stage('upload artifact to nexus') {
