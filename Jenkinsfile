@@ -113,8 +113,8 @@ pipeline {
             }
         }
         stage('Deploy to GKE cluster') {
-            // agent any
-            agent { docker 'kiwigrid/gcloud-kubectl-helm' }
+            agent any
+            // agent { docker 'kiwigrid/gcloud-kubectl-helm' }
             // agent { docker 'paperhive/gcloud-tools' }
             // agent {
             //     dockerfile {
@@ -132,7 +132,6 @@ pipeline {
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         kubectl config set-credentials ~/.kube/config 
                         kubectl get ns
-                        helm list 
                     '''
                 }
                 // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
