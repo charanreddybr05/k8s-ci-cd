@@ -58,6 +58,8 @@ pipeline {
             }
             stages {
                 stage('Upload WAR file to Artifactory') {
+//We can force our parallel stages to all be aborted when any one of them fails, by adding failFast true to the stage containing the parallel
+                    failFast true
                     parallel {
                         stage('Upload WAR file') {
                             steps {
@@ -81,9 +83,6 @@ pipeline {
                             }
                         }
                     }
-                }
-                stage('Build Docker image & Upload to JFrog artifactory') {
-
                 }
             }
         }
