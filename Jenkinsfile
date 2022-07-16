@@ -47,7 +47,8 @@ pipeline {
         // })
 //A stage must have one and only one of steps, stages, parallel, or matrix
         stage('Build Docker image & Upload to JFrog artifactory') {
-            agent any
+            // agent any
+            agent { docker 'apline' }
             input {
                 message "Maven Build is success, proceed?"
                 ok "Yes, proceed"
@@ -128,17 +129,20 @@ pipeline {
         //     }
         // }
     }
-    post {
-        always {
-            deleteDir()
-        }
-    }
+    // post {
+    //     always {
+    //         deleteDir()
+    //     }
+    // }
     // post {
     //     always{
     //         deleteDir()
     //     }
     //     failure {
     //         echo "sendmail -s mvn build failed receipients@my.com"
+            //  mail to: 'team@example.com',
+            //  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            //  body: "Something is wrong with ${env.BUILD_URL}"
     //     }
     //     success {
     //         echo "The job is successful"
