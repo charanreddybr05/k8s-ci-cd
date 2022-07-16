@@ -117,7 +117,6 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile.build'
-                    dir build
                     args '--target helm'
 
                 }
