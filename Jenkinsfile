@@ -1,7 +1,7 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     environment {
-        CREDS = 'credentials('gke-svc-secret')'
+        // CREDS = credentials('gke-svc-secret')
         registryUrl = 'https://macbookair.jfrog.io/docker'
         registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
@@ -126,18 +126,18 @@ pipeline {
                 // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
                 // // some block
                 // }
-                // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
-                //     sh '''
+                withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
+                    sh '
 
-                //         gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                //         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
-                //         kubectl config set-credentials ~/.kube/config 
-                //         kubectl get ns
-                //         helm list 
-                //     '''
-                // }
+                        gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                        kubectl config set-credentials ~/.kube/config 
+                        kubectl get ns
+                        helm list 
+                    '
+                }
                 // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
-                sh 'echo Hello'
+                // sh 'echo Hello'
             }
         }
         // stage('upload artifact to nexus') {
