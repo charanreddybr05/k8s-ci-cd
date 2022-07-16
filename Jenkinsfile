@@ -112,9 +112,16 @@ pipeline {
             // agent { docker 'ibmcom/kubectl' }
             agent any
             steps {
-                kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
-                // some block
+                // kubeconfig(credentialsId: 'gke-svc-secret', serverUrl: '', caCertificate:'') {
+                // // some block
+                // }
+                withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
+                    sh '''
+                        gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                        gcloud compute zones list
+                    '''
                 }
+                // kubernetesDeploy(credentialsType: '')
             }
         }
         // stage('upload artifact to nexus') {
