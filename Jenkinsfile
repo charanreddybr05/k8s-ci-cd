@@ -121,8 +121,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
                     sh '''
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                        gcloud compute zones list
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                        kubectl config set-credentials ~/.kube/config 
                         kubectl get nodes
                     '''
                 }
