@@ -124,6 +124,7 @@ pipeline {
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         kubectl config set-credentials ~/.kube/config 
                         kubectl get ns
+                        helm install -f helm/values.yaml httpd 
                     '''
                 }
                 // kubernetesDeploy(credentialsType: '')
