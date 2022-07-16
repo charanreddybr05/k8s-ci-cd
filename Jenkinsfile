@@ -131,10 +131,13 @@ pipeline {
                     sh '''
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                        helm list
                         kubectl config set-credentials ~/.kube/config 
                         kubectl get ns
                     '''
                 }
+                // /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                // /var/lib/jenkins/google-cloud-sdk/bin/gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                 // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
                 // sh 'echo Hello'
             }
