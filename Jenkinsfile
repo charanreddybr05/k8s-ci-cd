@@ -116,7 +116,7 @@ pipeline {
             // agent { docker 'kiwigrid/gcloud-kubectl-helm' }
             agent {
                 dockerfile {
-                    filename 'Dockerfile.build'
+                    filename 'Dockerfile'
                     args '--target helm'
 
                 }
