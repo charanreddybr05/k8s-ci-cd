@@ -129,12 +129,11 @@ pipeline {
         //     }
         // }
     }
-    post {
-        agent any
-        always {
-            deleteDir()
-        }
-    }
+    // post {
+    //     always {
+    //         deleteDir()
+    //     }
+    // }
     // post {
     //     always{
     //         deleteDir()
