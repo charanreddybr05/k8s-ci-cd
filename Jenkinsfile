@@ -123,7 +123,7 @@ pipeline {
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         kubectl config set-credentials ~/.kube/config 
-                        kubectl get nodes
+                        kubectl get ns
                     '''
                 }
                 // kubernetesDeploy(credentialsType: '')
