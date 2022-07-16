@@ -65,7 +65,27 @@ pipeline {
                             steps {
                             //This is to upload WAR file
                                 echo "Uploading Artifact"
-                                sh 'echo Uploading echo artifact'
+                                script {
+                                    rtUpload (
+                                        serverId: 'Jfrog',
+                                        // spec: '''{
+                                        //     "files": [
+                                        //         {
+                                        //             "pattern": "bazinga/*froggy*.zip",
+                                        //             "target": "bazinga-repo/froggy-files/"
+                                        //         }
+                                        //     ]
+                                        // }''',
+ 
+                                        // Optional - Associate the uploaded files with the following custom build name and build number,
+                                        // as build artifacts.
+                                        // If not set, the files will be associated with the default build name and build number (i.e the
+                                        // the Jenkins job name and number).
+                                        specPath: 'target/*.war',
+                                        buildName: 'holyFrog',
+                                        buildNumber: '42'
+                                    )
+                                }
                                 }
                             }
                         stage('Build Docker image & Upload to JFrog artifactory') {
@@ -106,6 +126,11 @@ pipeline {
         //             version: '1.0.0'
         //     }
         // }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
     // post {
     //     always{
