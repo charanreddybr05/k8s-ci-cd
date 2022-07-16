@@ -69,20 +69,19 @@ pipeline {
                                 script {
                                     rtUpload (
                                         serverId: 'Jfrog',
-                                        // spec: '''{
-                                        //     "files": [
-                                        //         {
-                                        //             "pattern": "bazinga/*froggy*.zip",
-                                        //             "target": "bazinga-repo/froggy-files/"
-                                        //         }
-                                        //     ]
-                                        // }''',
+                                        spec: '''{
+                                            "files": [
+                                                {
+                                                    "pattern": "target/*.war",
+                                                    "target": "example-repo-local//"
+                                                }
+                                            ]
+                                        }''',
  
                                         // Optional - Associate the uploaded files with the following custom build name and build number,
                                         // as build artifacts.
                                         // If not set, the files will be associated with the default build name and build number (i.e the
                                         // the Jenkins job name and number).
-                                        specPath: 'target/wwp-1.0.0.war',
                                         buildName: 'holyFrog',
                                         buildNumber: '42'
                                     )
