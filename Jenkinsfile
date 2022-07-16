@@ -8,7 +8,7 @@ pipeline {
         gkeProject = 'stan-robot-shop-354006'
         gkeRegion = 'us-central1'
         gkeCluster = 'jenkins-k8s'
-        CREDS = 'credentials('gke-svc-secret')'
+        CREDS = credentials('gke-svc-secret')
 
     }
     triggers {
@@ -137,7 +137,8 @@ pipeline {
                 //         helm list 
                 //     '''
                 // }
-                sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
+                // sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
+                sh 'echo Hello'
             }
         }
         // stage('upload artifact to nexus') {
