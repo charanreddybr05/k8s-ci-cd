@@ -137,7 +137,7 @@ pipeline {
                 //         helm list 
                 //     '''
                 // }
-                sh 'gcloud auth activate-service-account --key-file="$CREDS"'
+                sh 'gcloud auth activate-service-account --key-file="${CREDS}"'
             }
         }
         // stage('upload artifact to nexus') {
