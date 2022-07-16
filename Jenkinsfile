@@ -8,7 +8,7 @@ pipeline {
         gkeProject = 'stan-robot-shop-354006'
         gkeRegion = 'us-central1'
         gkeCluster = 'jenkins-k8s'
-        CREDS = credentials('gke-svc-secret')
+        // CREDS = credentials('gke-svc-secret')
 
     }
     triggers {
