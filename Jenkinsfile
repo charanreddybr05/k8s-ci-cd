@@ -1,13 +1,13 @@
 //Install Docker pipeline plugin in Jenkins
 pipeline {
     environment {
+        CREDS = credentials('gke-svc-secret')
         registryUrl = 'https://macbookair.jfrog.io/docker'
         registry = 'macbookair.jfrog.io/docker'
         registryCredential = 'jfrogcred'
         gkeProject = 'stan-robot-shop-354006'
         gkeRegion = 'us-central1'
         gkeCluster = 'jenkins-k8s'
-        CREDS = credentials('gke-svc-secret')
 
     }
     triggers {
