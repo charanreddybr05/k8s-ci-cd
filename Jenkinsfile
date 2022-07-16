@@ -113,7 +113,7 @@ pipeline {
         }
         stage('Deploy to GKE cluster') {
             // agent any
-            agent { docker 'kiwigrid/gcloud-kubectl-helm' bash}
+            agent { docker 'kiwigrid/gcloud-kubectl-helm'}
             // agent {
             //     dockerfile {
             //         filename 'Dockerfile'
