@@ -114,9 +114,9 @@ pipeline {
             }
         }
         stage('Deploy to GKE cluster') {
-            agent any
+            // agent any
             // Install gcloud, kubectl and helm with jenkins user
-            // agent { docker 'kiwigrid/gcloud-kubectl-helm' }
+            agent { docker 'kiwigrid/gcloud-kubectl-helm' }
             // agent { docker 'paperhive/gcloud-tools' }
             // agent {
             //     dockerfile {
@@ -130,8 +130,8 @@ pipeline {
                 // }
                 withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
                     sh '''
-                        /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
-                        /var/lib/jenkins/google-cloud-sdk/bin/gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
+                        gcloud auth activate-service-account --key-file="$GKE_CREDS"
+                        gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         helm list
                         kubectl config set-credentials ~/.kube/config 
                         kubectl get ns
