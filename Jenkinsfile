@@ -82,7 +82,7 @@ pipeline {
                                         // as build artifacts.
                                         // If not set, the files will be associated with the default build name and build number (i.e the
                                         // the Jenkins job name and number).
-                                        specPath: 'target/*.war',
+                                        specPath: 'target/wwp-1.0.0.war',
                                         buildName: 'holyFrog',
                                         buildNumber: '42'
                                     )
