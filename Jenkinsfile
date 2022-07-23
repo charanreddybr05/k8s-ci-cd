@@ -133,7 +133,6 @@ pipeline {
                         gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         helm list
-                        
                         kubectl get ns
                     '''
                 }
