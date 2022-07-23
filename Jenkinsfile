@@ -9,6 +9,7 @@ pipeline {
         gkeRegion = 'us-central1'
         gkeCluster = 'jenkins-k8s'
         CLOUDSDK_CONFIG = "${env.WORKSPACE}"
+        jFrog = credentials('jfrogcred')
 
     }
     triggers {
@@ -130,15 +131,15 @@ pipeline {
                 // }
                 // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
                 withCredentials([
-                    // file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS'), 
-                    usernamePassword(credentialsId: 'jfrogcred', JFROG_UNAME: 'USERNAME', JFROG_PASSWORD: 'PASSWORD')
+                    file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')
+                    // usernamePassword(credentialsId: 'jfrogcred', JFROG_UNAME: 'USERNAME', JFROG_PASSWORD: 'PASSWORD')
                     ]) {
                     sh '''
                         /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         /var/lib/jenkins/google-cloud-sdk/bin/gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         /usr/local/bin/helm list
                         /usr/local/bin/kubectl get ns
-                        /usr/local/bin/helm registry login https://macbookair.jfrog.io/ -u ${JFROG_UNAME} -p ${JFROG_PASSWORD}
+                        /usr/local/bin/helm registry login https://macbookair.jfrog.io/ -u ${jFrog.USR} -p ${jFrog.PSW}
                     '''
                 }
                 // /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
