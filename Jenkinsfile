@@ -133,6 +133,7 @@ pipeline {
                         /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
                         /var/lib/jenkins/google-cloud-sdk/bin/gcloud container clusters get-credentials ${gkeCluster} --region ${gkeRegion} --project ${gkeProject}
                         /usr/local/bin/helm list
+                        /usr/local/bin/helm registry login https://macbookair.jfrog.io/ -u jenkinsuser -p ${jfrogcred.PSW}
                         /usr/local/bin/kubectl get ns
                     '''
                 }
