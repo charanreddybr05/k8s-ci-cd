@@ -131,7 +131,7 @@ pipeline {
                 // withCredentials([file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS')]) {
                 withCredentials([
                     file(credentialsId: 'gke-svc-secret', variable: 'GKE_CREDS'), 
-                    usernamePassword(credentialsId: jfrogcred, uname: 'USERNAME', passwd: 'PASSWORD')
+                    usernamePassword(credentialsId: 'jfrogcred', uname: 'USERNAME', passwd: 'PASSWORD')
                     ]) {
                     sh '''
                         /var/lib/jenkins/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="$GKE_CREDS"
