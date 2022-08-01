@@ -7,7 +7,7 @@ RUN apt-get install gcloud* -y && apt-get install helm -y && apt-get install kub
 
 # docker build -t apache_image:1.0 .
 # FROM ubuntu 
-# RUN apt update 
+# RUN apt update -y
 # RUN apt install –y apache2 
 # RUN apt install –y apache2-utils 
 # RUN apt clean 
